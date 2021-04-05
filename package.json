@@ -1,7 +1,7 @@
 {
-  "name": "proton-examples",
+  "name": "proton-cli",
   "version": "1.0.0",
-  "description": "Modify .env with your private key and constants.js with your account name, etc",
+  "description": "Modify .env with your private key, account name etc. (see .env.example)",
   "main": "index.js",
   "dependencies": {
     "@proton/js": "^22.0.45",
@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProtonProtocol/proton-examples.git"
+    "url": "git+https://github.com/cryptotester/proton-cli.git"
   },
-  "author": "Syed Jafri",
+  "author": "cryptotester",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ProtonProtocol/proton-examples/issues"
+    "url": "https://github.com/cryptotester/proton-cli/issues"
   },
-  "homepage": "https://github.com/ProtonProtocol/proton-examples#readme"
+  "homepage": "https://github.com/cryptotester/proton-cli#readme"
 }
