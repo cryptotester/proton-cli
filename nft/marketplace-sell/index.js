@@ -5,7 +5,7 @@ const sellNft = async ({
     asset_ids,
     listing_price,
     settlement_symbol,
-    maker_marketplace
+    maker_marketplace = 'protonsea'
 }) => {
     const [precision, symbol] = settlement_symbol.split(',')
 

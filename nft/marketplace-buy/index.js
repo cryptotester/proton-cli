@@ -5,7 +5,7 @@ const buyNft = async ({
     token_contract,
     quantity,
     sale_id,
-    taker_marketplace
+    taker_marketplace = 'protonsea'
 }) => {
     await transact([
         {
