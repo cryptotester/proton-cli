@@ -1,6 +1,6 @@
 {
   "name": "proton-cli",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Modify .env with your private key, account name etc. (see .env.example)",
   "main": "index.js",
   "dependencies": {
