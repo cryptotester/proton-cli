@@ -20,7 +20,9 @@ const main = async (account, collection_name) => {
     console.log(`NFTs sold by ${account}, collection ${collection_name}:`)
     const listings = await getListings({
         seller: account,
-        collection_name: collection_name
+        collection_name: collection_name,
+        sort: 'collection_mint',
+        order: 'asc'
     })
     if (argv.debug) console.log(listings) // debug
 
