@@ -31,4 +31,5 @@ node sales.js --help
 # Available commands
 
 - balances.js
+- creator-balances.js
 - sales.js
