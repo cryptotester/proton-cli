@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const ACCOUNT = process.env.ACCOUNT
 const ACCOUNT_PERMISSION = process.env.ACCOUNT_PERMISSION
 const CHAIN = process.env.CHAIN
