@@ -2,6 +2,12 @@
 
 This repository was forked from https://github.com/ProtonProtocol/proton-examples and contains commands to be used conveniently by command line.
 
+For more information, check these APIs:
+- [AtomicAssets API](https://proton.api.atomicassets.io/atomicassets/docs/swagger/)
+- [AtomicMarket API](https://proton.api.atomicassets.io/atomicmarket/docs/swagger/)
+
+Copy `.env.example` to `.env` and set your account's `PRIVATE_KEY` and your default `ACCOUNT` (proton username). All other variables are optional. To test on testnet, set `CHAIN=test`.
+
 # Command line examples
 
 Generally you run a command like this:
