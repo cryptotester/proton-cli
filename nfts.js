@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+const { QUERY_ACCOUNT, COLLECTION } = require('./constants')
+
+var argv = require('yargs/yargs')(process.argv.slice(2))
+    .command('Get NFTs for sale filtered by account (account) and/or by collection name')
+    .example('$0 -o fred', 'Get NFTs for sale by fred')
+    .describe('account', 'Account (account)')
+    .alias('a', 'account')
+    .default('account', QUERY_ACCOUNT)
+    .describe('collection_name', 'Collection name')
+    .alias('c', 'collection_name')
+    .default('collection_name', COLLECTION)
+    .boolean(['debug'])
+    .argv
+;
+
+const { getNftsAdvanced } = require('./nft/get-nfts-advanced')
+
+const main = async (account, collection_name) => {
+    console.log(`NFTs owned by ${account}, collection ${collection_name}:`)
+
+    const nftsAdvanced = await getNftsAdvanced({
+        owner: account,
+        collection_name: collection_name,
+        sort: 'minted',
+        order: 'asc',
+        page: 1,
+        limit: 1000
+    })
+    if (argv.debug) console.log(nftsAdvanced)
+
+    let groupedNfts = {}
+    nftsAdvanced.forEach(nft => {
+        if (argv.debug) console.log(`${nft.template_mint}: ${nft.asset_id}`)
+        // if (argv.debug) console.log(nft)
+        if (collection_name !== '' && nft.collection.collection_name !== collection_name) {
+            return
+        }
+        const tpl_name = nft.template.immutable_data.name
+        const collection_friendly_name = nft.collection.name ? ` (${nft.collection.name})` : ''
+        const nft_group = `${tpl_name} (${nft.template.template_id}), ${nft.collection.collection_name}${collection_friendly_name}, issued: ${nft.template.issued_supply}`
+        const nft_info = `${nft.template_mint}: ${nft.asset_id}`
+        if (nft_group in groupedNfts) {
+            groupedNfts[nft_group].push(nft_info)
+        } else {
+            groupedNfts[nft_group] = [nft_info]
+        }
+    });
+   
+    console.log(groupedNfts)
+    Object.keys(groupedNfts).forEach(key => {
+        console.log(`${key}, owned: ${groupedNfts[key].length}`)
+    })
+}
+
+main(argv.account, argv.collection_name)

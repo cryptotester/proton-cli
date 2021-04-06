@@ -39,4 +39,5 @@ node sales.js --help
 - balances.js
 - creator-balances.js
 - delist.js
+- nfts.js
 - sales.js
