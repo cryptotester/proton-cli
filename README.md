@@ -41,4 +41,7 @@ node sales.js --help
 - delist.js
 - nfts.js
 - sales.js
+- sell.js
 - templates.js
+
+**Disclaimer**: under heavy development. Use at your own risk. Please submit bugs and even better submit PRs with the fix ;)
