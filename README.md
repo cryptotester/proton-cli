@@ -41,3 +41,4 @@ node sales.js --help
 - delist.js
 - nfts.js
 - sales.js
+- templates.js
