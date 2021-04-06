@@ -19,7 +19,16 @@ const wait = async (ms) => {
   });
 }
 
+const sortDictionary = (unordered) => Object.keys(unordered).sort().reduce(
+  (obj, key) => { 
+    obj[key] = unordered[key]; 
+    return obj;
+  }, 
+  {}
+);
+
 module.exports = {
   wait,
-  getDeployableFilesFromDir
+  getDeployableFilesFromDir,
+  sortDictionary
 }

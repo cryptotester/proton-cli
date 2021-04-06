@@ -14,7 +14,8 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .argv
 ;
 
-const { getNftsAdvanced } = require('./nft/get-nfts-advanced')
+const { getNftsAdvanced } = require('./nft/get-nfts-advanced');
+const { sortDictionary } = require('./utils');
 
 const main = async (account, collection_name) => {
     console.log(`NFTs owned by ${account}, collection ${collection_name}:`)
@@ -38,7 +39,7 @@ const main = async (account, collection_name) => {
         }
         const tpl_name = nft.template.immutable_data.name
         const collection_friendly_name = nft.collection.name ? ` (${nft.collection.name})` : ''
-        const nft_group = `${tpl_name} (${nft.template.template_id}), ${nft.collection.collection_name}${collection_friendly_name}, issued: ${nft.template.issued_supply}`
+        const nft_group = `${nft.template.template_id} "${tpl_name}", ${nft.collection.collection_name}${collection_friendly_name}, issued: ${nft.template.issued_supply}`
         const nft_info = `${nft.template_mint}: ${nft.asset_id}`
         if (nft_group in groupedNfts) {
             groupedNfts[nft_group].push(nft_info)
@@ -47,9 +48,10 @@ const main = async (account, collection_name) => {
         }
     });
    
-    console.log(groupedNfts)
-    Object.keys(groupedNfts).forEach(key => {
-        console.log(`${key}, owned: ${groupedNfts[key].length}`)
+    const sortedNfts = sortDictionary(groupedNfts)
+    console.log(sortedNfts)
+    Object.keys(sortedNfts).forEach(key => {
+        console.log(`${key}, owned: ${sortedNfts[key].length}`)
     })
 }
 

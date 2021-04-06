@@ -14,7 +14,8 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .argv
 ;
 
-const { getListings } = require('./nft/get-listings')
+const { getListings } = require('./nft/get-listings');
+const { sortDictionary } = require('./utils');
 
 const main = async (account, collection_name) => {
     console.log(`NFTs sold by ${account}, collection ${collection_name}:`)
@@ -28,9 +29,9 @@ const main = async (account, collection_name) => {
 
     let groupedSales = {}
     listings.forEach(l => {
-        const key = `${l.assets[0].template.template_id} (${l.assets[0].template.immutable_data.name})`
+        const key = `${l.assets[0].template.template_id} "${l.assets[0].template.immutable_data.name}"`
         const price = l.price.amount / Math.pow(10, l.price.token_precision)
-        const sale_info = `${price} ${l.price.token_symbol}, asset_id: ${l.assets[0].asset_id}, template_mint: #${l.assets[0].template_mint} sale_id: ${l.sale_id}`
+        const sale_info = `asset_id: ${l.assets[0].asset_id}, template_mint: ${l.assets[0].template_mint}, sale_id: ${l.sale_id}, ${price} ${l.price.token_symbol}`
 
         if (key in groupedSales) {
             groupedSales[key].push(sale_info)
@@ -41,7 +42,8 @@ const main = async (account, collection_name) => {
         if (argv.debug) console.log(l.assets[0]) // debug
     })
 
-    console.log(groupedSales)
+    let sortedSales = sortDictionary(groupedSales)
+    console.log(sortedSales)
 }
 
 main(argv.account, argv.collection_name)
