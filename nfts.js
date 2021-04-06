@@ -2,8 +2,9 @@
 const { QUERY_ACCOUNT, COLLECTION } = require('./constants')
 
 var argv = require('yargs/yargs')(process.argv.slice(2))
-    .command('Get NFTs for sale filtered by account (account) and/or by collection name')
-    .example('$0 -o fred', 'Get NFTs for sale by fred')
+    .command('Get NFTs owned by an account')
+    .example('$0 -a fred', 'Get NFTs owned by fred')
+    .example('$0 -a fred -c monsters', 'Get "monsters" collection NFTs owned by fred')
     .describe('account', 'Account (account)')
     .alias('a', 'account')
     .default('account', QUERY_ACCOUNT)
