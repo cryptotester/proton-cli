@@ -43,6 +43,7 @@ node sales.js --help
 - nfts.js
 - sales.js
 - sell.js
+- send-nft.js
 - templates.js
 
 **Disclaimer**: under heavy development. Use at your own risk. Please submit bugs and even better submit PRs with the fix ;)
