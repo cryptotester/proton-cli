@@ -17,19 +17,22 @@ var argv = require('yargs/yargs')(process.argv)
     .default('collection_name', '')
     .describe('template_id', 'template_id')
     .default('template_id', '')
+    .describe('sale_id', 'sale_id')
+    .default('sale_id', undefined)
     .boolean(['debug'])
     .argv
 
 console.log(argv.template_id)
 
-const main = async (collection_name, template_id, from_asset_id, to_asset_id) => {
+const delistByAssetId = async (collection_name, template_id, from_asset_id, to_asset_id) => {
 
-    console.log(`Delisting NFTs of collection ${collection_name}, template_id ${template_id}, from ${from_asset_id} to ${to_asset_id}`)
     const listings = await getListingsByTemplate({
+        seller: ACCOUNT,
         template_id: template_id,
         collection_name: collection_name,
         sort: 'collection_mint',
-        order: 'asc'
+        order: 'asc',
+        limit: 1000
     })
 
     let assets = {}
@@ -41,8 +44,9 @@ const main = async (collection_name, template_id, from_asset_id, to_asset_id) =>
     })
 
     if (to_asset_id === undefined) to_asset_id = from_asset_id
+    console.log(`Delisting NFTs of collection ${collection_name}, template_id ${template_id}, from ${from_asset_id} to ${to_asset_id}`)
     for (i = from_asset_id; i <= to_asset_id; i++) {
-        // Check if the asset_id is in the assets for sale, if yet delist it ny sale_id
+        // Check if the asset_id is in the assets for sale, if yes delist it by sale_id
         if (i in assets) {
             console.log(`Delisting ${i}: ${assets[i]}`)
             await cancelNftSale({
@@ -52,4 +56,16 @@ const main = async (collection_name, template_id, from_asset_id, to_asset_id) =>
     }
 }
 
-main(argv.collection_name, argv.template_id, argv.from_asset_id, argv.to_asset_id)
+const delistBySaleId = async (sale_id) => {
+    console.log(`Delisting ${sale_id}`)
+    await cancelNftSale({
+        sale_id: sale_id
+    })
+}
+
+if (argv.sale_id !== undefined && argv.sale_id !== '') {
+    delistBySaleId(argv.sale_id)
+    return
+}
+
+delistByAssetId(argv.collection_name, argv.template_id, argv.from_asset_id, argv.to_asset_id)
