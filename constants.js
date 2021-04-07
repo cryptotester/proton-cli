@@ -15,7 +15,6 @@ const NFT_API = CHAIN === 'proton'
 const SYSTEM = 'eosio' // don't change
 const XPR_TOKEN_CONTRACT = 'eosio.token' // don't change
 
-const QUERY_ACCOUNT = process.env.QUERY_ACCOUNT
 const COLLECTION = process.env.COLLECTION
 
 module.exports = {
@@ -26,6 +25,5 @@ module.exports = {
     CHAIN,
     ENDPOINT,
     NFT_API,
-    QUERY_ACCOUNT,
     COLLECTION
 }

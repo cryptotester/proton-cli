@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { QUERY_ACCOUNT } = require('./constants')
+const { ACCOUNT } = require('./constants')
 
 var argv = require('yargs/yargs')(process.argv.slice(2))
     .command('Get balances by account/owner')
@@ -8,7 +8,7 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .example('$0 -a syedjafri -s foobar,xusdc', 'Get syedjafri\'s FOOBAR and XUSDC balances')
     .describe('a', 'Account')
     .alias('a', 'account')
-    .default('account', QUERY_ACCOUNT)
+    .default('account', ACCOUNT)
     .describe('s', 'Symbol e.g. XPR or comma separated list of symbol, e.g. XPR,FOOBAR')
     .alias('s', 'symbols')
     .default('s', '')

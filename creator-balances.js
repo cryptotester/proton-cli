@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-const { QUERY_ACCOUNT } = require('./constants')
+const { ACCOUNT } = require('./constants')
 
 var argv = require('yargs/yargs')(process.argv.slice(2))
     .command('Get creator balances by account')
     .example('$0 -a monsters', 'Get monsters\'s creator balances')
     .describe('a', 'Account')
     .alias('a', 'account')
-    .default('account', QUERY_ACCOUNT)
+    .default('account', ACCOUNT)
     .boolean(['debug'])
     .argv
 ;

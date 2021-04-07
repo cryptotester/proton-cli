@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-const { QUERY_ACCOUNT, COLLECTION } = require('./constants')
+const { ACCOUNT, COLLECTION } = require('./constants')
 
 var argv = require('yargs/yargs')(process.argv.slice(2))
     .command('Get templates')
     .example('$0 -a protonsea', 'Get templates available for protonsea')
     .describe('account', 'Account (account)')
     .alias('a', 'account')
-    .default('account', QUERY_ACCOUNT)
+    .default('account', ACCOUNT)
     .describe('collection_name', 'Collection name')
     .alias('c', 'collection_name')
     .default('collection_name', COLLECTION)

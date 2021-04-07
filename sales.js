@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { QUERY_ACCOUNT, COLLECTION } = require('./constants')
+const { ACCOUNT, COLLECTION } = require('./constants')
 
 var argv = require('yargs/yargs')(process.argv.slice(2))
     .command('Get NFTs listed for sale')
@@ -7,7 +7,7 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .example('$0 -a fred -c monsters', 'Get "monsters" collection NFTs for sale by fred')
     .describe('account', 'Account (account)')
     .alias('a', 'account')
-    .default('account', QUERY_ACCOUNT)
+    .default('account', ACCOUNT)
     .describe('collection_name', 'Collection name')
     .alias('c', 'collection_name')
     .default('collection_name', COLLECTION)
