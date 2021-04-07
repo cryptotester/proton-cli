@@ -11,6 +11,9 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .describe('collection_name', 'Collection name')
     .alias('c', 'collection_name')
     .default('collection_name', COLLECTION)
+    .describe('template_id', 'template_id')
+    .alias('t', 'template_id')
+    .default('template_id', '')
     .boolean(['debug'])
     .argv
 ;
@@ -18,12 +21,13 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
 const { getNftsAdvanced } = require('./nft/get-nfts-advanced');
 const { sortDictionary } = require('./utils');
 
-const main = async (account, collection_name) => {
-    console.log(`NFTs owned by ${account}, collection ${collection_name}:`)
+const main = async (account, collection_name, template_id) => {
+    console.log(`NFTs owned by ${account}, collection ${collection_name}, template_id ${template_id}`)
 
     const nftsAdvanced = await getNftsAdvanced({
         owner: account,
         collection_name: collection_name,
+        template_id: template_id,
         sort: 'minted',
         order: 'asc',
         page: 1,
@@ -56,4 +60,4 @@ const main = async (account, collection_name) => {
     })
 }
 
-main(argv.account, argv.collection_name)
+main(argv.account, argv.collection_name, argv.template_id)

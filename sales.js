@@ -11,6 +11,9 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .describe('collection_name', 'Collection name')
     .alias('c', 'collection_name')
     .default('collection_name', COLLECTION)
+    .describe('template_id', 'template_id')
+    .alias('t', 'template_id')
+    .default('template_id', '')
     .boolean(['debug'])
     .argv
 ;
@@ -18,13 +21,15 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
 const { getListings } = require('./nft/get-listings');
 const { sortDictionary } = require('./utils');
 
-const main = async (account, collection_name) => {
+const main = async (account, collection_name, template_id) => {
     console.log(`NFTs sold by ${account}, collection ${collection_name}:`)
     const listings = await getListings({
         seller: account,
         collection_name: collection_name,
+        template_id: template_id,
         sort: 'collection_mint',
-        order: 'asc'
+        order: 'asc',
+        limit: 1000
     })
     if (argv.debug) console.log(listings) // debug
 
@@ -47,4 +52,4 @@ const main = async (account, collection_name) => {
     console.log(sortedSales)
 }
 
-main(argv.account, argv.collection_name)
+main(argv.account, argv.collection_name, argv.template_id)
