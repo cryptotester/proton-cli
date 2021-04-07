@@ -89,6 +89,3 @@ lerna-debug.log
 .DS_Store
 Thumbs.db
 @jafri
-
-# Yarn.lock
-yarn.lock
