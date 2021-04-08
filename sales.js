@@ -22,7 +22,7 @@ const { getListings } = require('./nft/get-listings');
 const { sortDictionary } = require('./utils');
 
 const main = async (account, collection_name, template_id) => {
-    console.log(`NFTs sold by ${account}, collection ${collection_name}:`)
+    console.log(`NFTs for sale by ${account}, collection ${collection_name}:`)
     const listings = await getListings({
         seller: account,
         collection_name: collection_name,
