@@ -18,7 +18,7 @@ var argv = require('yargs/yargs')(process.argv)
     .boolean(['debug'])
     .argv
 
-const main = async (from_asset_id, to_asset_id, price, symbol) => {
+const sell = async (from_asset_id, to_asset_id, price, symbol) => {
 
     if (to_asset_id === undefined) to_asset_id = from_asset_id
     symbol = symbol.toUpperCase()
@@ -46,4 +46,8 @@ const main = async (from_asset_id, to_asset_id, price, symbol) => {
     }
 }
 
-main(argv.from_asset_id, argv.to_asset_id, argv.price, argv.symbol)
+sell(argv.from_asset_id, argv.to_asset_id, argv.price, argv.symbol)
+
+module.exports = {
+    sell
+}
