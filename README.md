@@ -41,6 +41,7 @@ node sales.js --help
 - creator-balances.js
 - delist.js
 - nfts.js
+- relist.js
 - sales.js
 - sell.js
 - send-nft.js
