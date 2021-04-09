@@ -23,8 +23,6 @@ var argv = require('yargs/yargs')(process.argv)
     .boolean(['debug'])
     .argv
 
-console.log(argv.template_id)
-
 const delistByAssetId = async (collection_name, template_id, from_asset_id, to_asset_id) => {
 
     const listings = await getListingsByTemplate({
@@ -76,3 +74,7 @@ if (argv.sale_id !== undefined && argv.sale_id !== '') {
 }
 
 delistByAssetId(argv.collection_name, argv.template_id, argv.from_asset_id, argv.to_asset_id)
+
+module.exports = {
+    delistByAssetId
+}
