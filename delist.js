@@ -17,6 +17,7 @@ var argv = require('yargs/yargs')(process.argv)
     .default('collection_name', '')
     .describe('template_id', 'template_id')
     .default('template_id', '')
+    .alias('t', 'template_id')
     .describe('sale_id', 'sale_id')
     .default('sale_id', undefined)
     .boolean(['debug'])
@@ -34,6 +35,7 @@ const delistByAssetId = async (collection_name, template_id, from_asset_id, to_a
         order: 'asc',
         limit: 1000
     })
+    if (argv.debug) console.log(`Fetched ${listings.length}`)
 
     let assets = {}
     listings.forEach(l => {
@@ -45,21 +47,26 @@ const delistByAssetId = async (collection_name, template_id, from_asset_id, to_a
 
     if (to_asset_id === undefined) to_asset_id = from_asset_id
     console.log(`Delisting NFTs of collection ${collection_name}, template_id ${template_id}, from ${from_asset_id} to ${to_asset_id}`)
+    let payload = []
     for (i = from_asset_id; i <= to_asset_id; i++) {
         // Check if the asset_id is in the assets for sale, if yes delist it by sale_id
         if (i in assets) {
             console.log(`Delisting ${i}: ${assets[i]}`)
-            await cancelNftSale({
-                sale_id: assets[i]
-            })
+            payload.push(assets[i])
+        } else {
+            console.log(`Warning: sale_id ${assets[i]} doesn't belong to your selection`)
         }
     }
+    if (argv.debug) console.log(payload)
+    await cancelNftSale({
+        sale_ids: payload
+    })
 }
 
 const delistBySaleId = async (sale_id) => {
     console.log(`Delisting ${sale_id}`)
     await cancelNftSale({
-        sale_id: sale_id
+        sale_ids: sale_id
     })
 }
 
