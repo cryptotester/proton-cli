@@ -37,6 +37,7 @@ node sales.js --help
 # Available commands
 
 - balances.js
+- buy.js
 - buy-ram.js
 - creator-balances.js
 - delist.js
