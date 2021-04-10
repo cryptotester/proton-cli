@@ -4,7 +4,7 @@ const { getListingsByTemplate } = require('./nft/get-listings-by-template')
 const { cancelNftSale } = require('./nft/marketplace-unlist')
 
 var argv = require('yargs/yargs')(process.argv)
-    .command('Delist NFTs by providing at least "from" asset_id, and "to" for a range. By adding "collection_name' +
+    .command('Delist NFTs by providing at least "from" asset_id, and "to" for a range. By adding "collection_name" ' +
             'and "template_id" you make sure to delist only those ones belonging to that collection and template.')
     .example('$0 -c flytothemoon --template_id 21 --from 4398046516712 --to 4398046516714')
     .describe('from_asset_id', 'From this asset_id (lower number)')
