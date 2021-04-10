@@ -49,7 +49,10 @@ const main = async (account, collection_name, template_id) => {
     })
 
     let sortedSales = sortDictionary(groupedSales)
-    console.log(sortedSales)
+    for (const [key, assets] of Object.entries(sortedSales)) {
+        console.log(`${key} (total: ${sortedSales[key].length})`)
+        assets.forEach(a => console.log(a))
+    }
 }
 
 main(argv.account, argv.collection_name, argv.template_id)
