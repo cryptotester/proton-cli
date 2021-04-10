@@ -14,7 +14,7 @@ var argv = require('yargs/yargs')(process.argv)
     .alias('p', 'price')
     .describe('symbol', 'Symbol')
     .alias('s', 'symbol')
-    .default('symbol', 'XPR')
+    .default('symbol', '')
     .boolean(['debug'])
     .argv
 
