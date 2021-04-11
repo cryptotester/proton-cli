@@ -12,20 +12,20 @@ var argv = require('yargs/yargs')(process.argv)
     .describe('end_asset_id', 'End range to this asset_id (higher number)')
     .alias(['e', 'end'], 'end_asset_id')
     .default('end_asset_id', undefined)
-    .describe('to', 'Receiver')
-    .alias(['t', 'r'], 'to')
+    .describe('receiver', 'Receiver')
+    .alias(['t', 'r'], 'receiver')
     .describe('memo', 'Memo')
     .alias('m', 'memo')
     .default('memo', '')
     .boolean(['debug'])
-    .demandOption(['asset_id','r'])
+    .demandOption(['asset_id','receiver'])
     .argv
 
 const sendNft = async (start_asset_id, end_asset_id, receiver, memo) => {
 
     const nftsText = (end_asset_id === undefined) ? `NFT ${start_asset_id}` : `NFTs from ${start_asset_id} to ${end_asset_id}`
     const memoText = (memo !== '') ? ` (memo: ${memo})` : ''
-    console.log(`Sending ${nftsText} to ${receiver}${memoText}.`)
+    console.log(`Sending ${nftsText} from ${ACCOUNT} to ${receiver}${memoText}.`)
 
     if (end_asset_id === undefined) end_asset_id = start_asset_id
     let assets = []
@@ -49,4 +49,4 @@ const sendNft = async (start_asset_id, end_asset_id, receiver, memo) => {
         })
 }
 
-sendNft(argv.start_asset_id, argv.end_asset_id, argv.to, argv.memo)
+sendNft(argv.start_asset_id, argv.end_asset_id, argv.receiver, argv.memo)
