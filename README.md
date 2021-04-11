@@ -47,5 +47,6 @@ node sales.js --help
 - sell.js
 - send-nft.js
 - templates.js
+- withdraw.js
 
 **Disclaimer**: under heavy development. Use at your own risk. Please submit bugs and even better submit PRs with the fix ;)
