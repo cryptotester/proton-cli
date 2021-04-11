@@ -41,6 +41,7 @@ node sales.js --help
 - buy-ram.js
 - creator-balances.js
 - delist.js
+- ladder-sell.js
 - nfts.js
 - relist.js
 - sales.js
