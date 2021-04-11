@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { ACCOUNT } = require('./constants')
+const { ACCOUNT, TOKEN_PRECISIONS } = require('./constants')
 const { sellNft } = require('./nft/marketplace-sell')
 
 var argv = require('yargs/yargs')(process.argv)
@@ -23,18 +23,12 @@ const sell = async (from_asset_id, to_asset_id, price, symbol) => {
     if (to_asset_id === undefined) to_asset_id = from_asset_id
     symbol = symbol.toUpperCase()
 
-    const precisions = {
-        'XPR': 4,
-        'XUSDC': 6,
-        'FOOBAR': 6
-    }
-
-    if (!(symbol in precisions)) {
+    if (!(symbol in TOKEN_PRECISIONS)) {
         console.log(`${symbol} is not supported: try to update the precisions dictionary in sell.js`)
         return
     }
 
-    const settlement_symbol = `${precisions[symbol]},${symbol}`
+    const settlement_symbol = `${TOKEN_PRECISIONS[symbol]},${symbol}`
 
     for (let i = from_asset_id; i <= to_asset_id; i++) {
         console.log(`Selling ${i} for ${price} ${symbol}`)

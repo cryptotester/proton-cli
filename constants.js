@@ -15,6 +15,19 @@ const NFT_API = CHAIN === 'proton'
 const SYSTEM = 'eosio' // don't change
 const XPR_TOKEN_CONTRACT = 'eosio.token' // don't change
 
+const TOKEN_PRECISIONS = {
+    'XPR': 4,
+    'XUSDC': 6,
+    'FOOBAR': 6
+}
+
+const TOKEN_CONTRACTS = {
+    'XPR': 'eosio.token',
+    'XUSDC': 'xtokens',
+    'XUSDT': 'xtokens',
+    'FOOBAR': 'xtokens',
+}
+
 const COLLECTION = process.env.COLLECTION
 
 module.exports = {
@@ -25,5 +38,7 @@ module.exports = {
     CHAIN,
     ENDPOINT,
     NFT_API,
-    COLLECTION
+    COLLECTION,
+    TOKEN_PRECISIONS,
+    TOKEN_CONTRACTS
 }

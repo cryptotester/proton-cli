@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { ACCOUNT } = require('./constants')
+const { ACCOUNT, TOKEN_CONTRACTS} = require('./constants')
 
 var argv = require('yargs/yargs')(process.argv.slice(2))
     .command('Get balances by account/owner')
@@ -21,18 +21,12 @@ const { getBalance } = require('./token/get-balance')
 const main = async (account, symbols) => {
 
     symbols = symbols.toUpperCase().split(',')
-    
+
     if (symbols[0] === '') symbols = undefined
 
     console.log(`${account}'s balances:`)
-    const currencies = {
-        'XPR': 'eosio.token',
-        'XUSDC': 'xtokens',
-        'XUSDT': 'xtokens',
-        'FOOBAR': 'xtokens',
-    }
 
-    for([symbol, contract] of Object.entries(currencies)) {
+    for([symbol, contract] of Object.entries(TOKEN_CONTRACTS)) {
         if (symbols !== undefined) {
             if (!(symbols.includes(symbol))) {
                 continue
@@ -40,7 +34,7 @@ const main = async (account, symbols) => {
         }
         const balance = await getBalance({
             account: account,
-            tokenContract: currencies[symbol],
+            tokenContract: TOKEN_CONTRACTS[symbol],
             tokenSymbol: symbol
         })
         console.log(`${balance.toLocaleString()} ${symbol}`)
