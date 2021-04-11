@@ -24,14 +24,14 @@ const sell = async (from_asset_id, to_asset_id, price, symbol) => {
     symbol = symbol.toUpperCase()
 
     if (!(symbol in TOKEN_PRECISIONS)) {
-        console.log(`${symbol} is not supported: try to update the precisions dictionary in sell.js`)
+        console.log(`${symbol} is not supported: try to update the precisions dictionary in constants.js`)
         return
     }
 
     const settlement_symbol = `${TOKEN_PRECISIONS[symbol]},${symbol}`
 
     for (let i = from_asset_id; i <= to_asset_id; i++) {
-        console.log(`Selling ${i} for ${price} ${symbol}`)
+        console.log(`${i} will be listed for ${price} ${symbol}`)
         await sellNft({
             asset_ids: [i],
             listing_price: price,

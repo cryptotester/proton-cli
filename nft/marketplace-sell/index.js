@@ -2,7 +2,7 @@ const { transact } = require('../../api')
 const { ACCOUNT, ACCOUNT_PERMISSION } = require('../../constants')
 
 const sellNft = async ({
-    asset_ids,
+    asset_ids, // be careful, if you provide multiple ids you sell all together as a set for the price specified
     listing_price,
     settlement_symbol,
     maker_marketplace = 'protonsea'
