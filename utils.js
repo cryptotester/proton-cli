@@ -52,10 +52,24 @@ const getHumanFriendlyAmount = (blockchain_amount, symbol) => {
   return blockchain_amount / Math.pow(10, precision)
 }
 
+/**
+ * Get quantity for an API buy or sell request, e.g. 10000 XPR returns `1 XPR`
+ * @param price The price object from the listings response, containing symbol, token_precision, amount (long number without commas and additional zeroes as the precision)
+ * @returns {String} Amount for API request, e.g. 1.0000 XPR
+ */
+ const getQuantityFromPriceListing = (price) => {
+  symbol = price.token_symbol
+  const precision = price.token_precision // this takes the precision as is, from the response
+  const blockchain_amount = price.amount
+  const amount = blockchain_amount / Math.pow(10, precision) // this doesn't need the coin to be present in the TOKEN_PRECISIONS constant
+  return `${parseFloat(amount).toFixed(precision)} ${symbol}`
+}
+
 module.exports = {
   wait,
   getDeployableFilesFromDir,
   sortDictionary,
   getQuantity,
-  getHumanFriendlyAmount
+  getHumanFriendlyAmount,
+  getQuantityFromPriceListing
 }

@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const { getQuantity, getHumanFriendlyAmount } = require('../utils')
+const { getQuantity, getHumanFriendlyAmount, getQuantityFromPriceListing } = require('../utils')
 
 describe('getQuantity()', function() {
     const tests = [
@@ -18,7 +18,7 @@ describe('getQuantity()', function() {
     })
 })
 
-  describe('getHumanFriendlyAmount()', function() {
+describe('getHumanFriendlyAmount()', function() {
     const tests = [
         {name : 'FOOBAR integer', amount: 1000000, symbol: 'FOOBAR', expected: 1},
         {name : 'FOOBAR float', amount: 1100000, symbol: 'FOOBAR', expected: 1.1},
@@ -29,6 +29,20 @@ describe('getQuantity()', function() {
     tests.forEach((test) => {
         it(test.name, function() {
             const result = getHumanFriendlyAmount(test.amount, test.symbol)
+            expect(result).to.equal(test.expected)
+        })
+    })
+})
+
+describe('getQuantityFromPriceListing()', function() {
+    const tests = [
+        {name : 'XPR integer', price: { amount: 10000, token_symbol: 'XPR', token_precision: 4}, expected: '1.0000 XPR'},
+        {name : 'ABC float', price: { amount: 1005, token_symbol: 'ABC', token_precision: 3}, expected: '1.005 ABC'},
+      ];
+
+    tests.forEach((test) => {
+        it(test.name, function() {
+            const result = getQuantityFromPriceListing(test.price)
             expect(result).to.equal(test.expected)
         })
     })
