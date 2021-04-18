@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { ACCOUNT } = require('./constants')
-const { getQuantityFromPriceListing } = require('./utils')
+const { getQuantityFromPriceListing, getHumanFriendlyAmount } = require('./utils')
 const { getListings } = require('./nft/get-listings');
 const { buyNft } = require('./nft/marketplace-buy')
 const pressAnyKey = require('./node_modules/press-any-key')
@@ -27,10 +27,16 @@ const buy = async (sale_id) => {
     const listing = listings[0]
     if (argv.debug) console.log(listing) // debug
 
+    const aId = listing.assets[0].asset_id
+    const aName = listing.assets[0].name
+    const tId = listing.assets[0].template.template_id
+    const mint = listing.assets[0].template_mint
     const seller = listing.seller
-    const token_contract = listing.price.token_contract
+    const tokenContract = listing.price.token_contract
+    const symbol = listing.price.token_symbol
     const quantity = getQuantityFromPriceListing(listing.price)
-    console.log(`Found sale_id ${sale_id} by ${seller} for ${quantity}`)
+    const humanPrice = getHumanFriendlyAmount(listing.price.amount, symbol)
+    console.log(`Buy ${aName} nr ${mint} (t ${tId}) for ${humanPrice.toLocaleString()} ${symbol} (sale ${sale_id} by ${seller}, asset ${aId})`)
 
     pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
         ctrlC: 'reject'
@@ -38,7 +44,7 @@ const buy = async (sale_id) => {
     .then(async () => {
         try {
             await buyNft({
-                token_contract: token_contract,
+                token_contract: tokenContract,
                 quantity: quantity,
                 sale_id: sale_id
             })
