@@ -4,7 +4,8 @@ const { ACCOUNT, ACCOUNT_PERMISSION } = require('../../constants')
 const createCollection = async ({
     collection_name,
     creator_fee,
-    data
+    data,
+    authorized_accounts = [ACCOUNT]
 }) => {
     await transact([{
         account: "atomicassets",
@@ -13,7 +14,7 @@ const createCollection = async ({
             author: ACCOUNT,
             collection_name: collection_name,
             allow_notify: true,
-            authorized_accounts: [ACCOUNT],
+            authorized_accounts: authorized_accounts,
             notify_accounts: [],
             market_fee: creator_fee,
             data: data
