@@ -17,7 +17,7 @@ const sellManyNfts = async ({
         const precision = TOKEN_PRECISIONS[_symbol]
         const settlementSymbol = `${precision},${_symbol}`
         const listingPrice = getQuantity(_price, _symbol)
-        console.log(`${nft.asset_id} will be listed for ${listingPrice} (${settlementSymbol})`)
+        // console.log(`${nft.asset_id} being listed for ${listingPrice} (${settlementSymbol})`)
 
         payload.push({
             account: "atomicmarket",
