@@ -25,7 +25,8 @@ const main = async (account, collection_name) => {
     if (argv.debug) console.log(templates)
 
     templates.forEach(t => {
-        console.log(`${t.collection.collection_name} (by ${t.collection.author}), ${t.template_id} "${t.name}", issued: ${t.issued_supply}, max_supply: ${t.max_supply}`)
+        console.log(`${t.collection.collection_name} (by ${t.collection.author}), schema ${t.schema.schema_name},`
+        + ` ${t.template_id} "${t.name}", issued: ${t.issued_supply}, max_supply: ${t.max_supply}`)
     })
 }
 
