@@ -21,7 +21,7 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .argv
 ;
 
-const buyRam = async (bytes, kilobytes, receiver) => { 
+const buyRam = async (bytes, kilobytes, receiver = ACCOUNT) => { 
 
   if (bytes === 0 && kilobytes > 0) {
     bytes = kilobytes * 1000
@@ -36,7 +36,7 @@ const buyRam = async (bytes, kilobytes, receiver) => {
 
   const pricePerByte = 22 / 1000
   const cost = bytes * pricePerByte
-  const receverText = (receiver !== ACCOUNT) ? `to be sent to ${receiver}` : ''
+  const receverText = (receiver !== ACCOUNT) ? ` to be sent to ${receiver}` : ''
   console.log(`With your account ${ACCOUNT} you are buying ${kilobytes} kB if RAM${receverText}. ` +
               `This will cost you ${Math.round(cost)} XPR.`)
 
@@ -45,7 +45,8 @@ const buyRam = async (bytes, kilobytes, receiver) => {
   })
     .then(async () => {
       await buyStorage({
-        bytes: bytes
+        bytes: bytes,
+        receiver: receiver
       })
     })
     .catch(() => {
