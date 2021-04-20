@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-const { ACCOUNT, TOKEN_PRECISIONS } = require('./constants')
-const { sellNft } = require('./nft/marketplace-sell')
+const { TOKEN_PRECISIONS } = require('./constants')
+const { sellManyNfts } = require('./nft/marketplace-sell-many')
+const pressAnyKey = require('./node_modules/press-any-key')
 
 var argv = require('yargs/yargs')(process.argv)
     .command('Sell NFTs by providing at least "from" asset_id, and "to" for a range')
@@ -9,13 +10,13 @@ var argv = require('yargs/yargs')(process.argv)
     .alias(['i', 'from', 'id', 'asset_id'], 'from_asset_id')
     .describe('to_asset_id', 'To this asset_id (higher number)')
     .alias('to', 'to_asset_id')
-    .default('to_asset_id', undefined)
     .describe('price', 'Price')
     .alias('p', 'price')
     .describe('symbol', 'Symbol')
     .alias('s', 'symbol')
     .default('symbol', '')
     .boolean(['debug'])
+    .demandOption(['from_asset_id', 'price', 'symbol'])
     .argv
 
 const sell = async (from_asset_id, to_asset_id, price, symbol) => {
@@ -28,16 +29,28 @@ const sell = async (from_asset_id, to_asset_id, price, symbol) => {
         return
     }
 
-    const settlement_symbol = `${TOKEN_PRECISIONS[symbol]},${symbol}`
-
+    nftsToSell = []
     for (let i = from_asset_id; i <= to_asset_id; i++) {
         console.log(`${i} will be listed for ${price} ${symbol}`)
-        await sellNft({
-            asset_ids: [i],
-            listing_price: price,
-            settlement_symbol: settlement_symbol
+        nftsToSell.push({
+            asset_id: i,
+            price: price,
+            symbol: symbol
         })
     }
+    pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
+        ctrlC: 'reject'
+    })
+    .then(async () => {
+        try {
+            await sellManyNfts({ nftsToSell })
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    .catch(() => {
+        console.log('You pressed Ctrl + C')
+    })
 }
 
 sell(argv.from_asset_id, argv.to_asset_id, argv.price, argv.symbol)
