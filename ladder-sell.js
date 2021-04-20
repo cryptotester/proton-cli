@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const { ACCOUNT, TOKEN_PRECISIONS } = require('./constants')
 const { sellManyNfts } = require('./nft/marketplace-sell-many')
 const pressAnyKey = require('./node_modules/press-any-key')
 
@@ -50,9 +49,13 @@ const ladderSell = async (from_asset_id, to_asset_id, max_price, min_price, symb
     }
     pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
         ctrlC: 'reject'
-      })
+    })
     .then(async () => {
-        await sellManyNfts({ nftsToSell: nftsToSell })
+        try {
+            await sellManyNfts({ nftsToSell })
+        } catch (e) {
+            console.log(e)
+        }
     })
     .catch(() => {
         console.log('You pressed Ctrl + C')
