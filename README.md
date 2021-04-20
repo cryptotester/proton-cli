@@ -43,6 +43,7 @@ node sales.js --help
 - create-collection.js (you must edit the contents of this script before running it)
 - delist.js
 - ladder-sell.js
+- mint.js
 - nfts.js
 - relist.js
 - sales.js
