@@ -41,6 +41,7 @@ node sales.js --help
 - buy-ram.js
 - creator-balances.js
 - create-collection.js (you must edit the contents of this script before running it)
+- create-templates.js (you must edit the contents of this script before running it)
 - delist.js
 - ladder-sell.js
 - mint.js
