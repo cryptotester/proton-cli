@@ -43,15 +43,19 @@ const buyRam = async (bytes, kilobytes, receiver = ACCOUNT) => {
   pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
     ctrlC: 'reject'
   })
-    .then(async () => {
+  .then(async () => {
+    try {
       await buyStorage({
         bytes: bytes,
         receiver: receiver
       })
-    })
-    .catch(() => {
-      console.log('You pressed Ctrl + C')
-    })
+    } catch (e) {
+      console.log(e)
+    }
+  })
+  .catch(() => {
+    console.log('You pressed Ctrl + C')
+  })
 }
 
 buyRam(argv.bytes, argv.kilobytes, argv.to)
