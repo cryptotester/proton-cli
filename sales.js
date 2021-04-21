@@ -37,7 +37,8 @@ const main = async (account, collection_name, template_id) => {
     listings.forEach(l => {
         const key = `${l.assets[0].template.template_id} "${l.assets[0].template.immutable_data.name}"`
         const price = l.price.amount / Math.pow(10, l.price.token_precision)
-        const sale_info = `asset_id: ${l.assets[0].asset_id}, template_mint: ${l.assets[0].template_mint}, sale_id: ${l.sale_id}, ${price} ${l.price.token_symbol}`
+        const sale_info = `asset_id: ${l.assets[0].asset_id}, template_mint: ${l.assets[0].template_mint}, sale_id: ${l.sale_id},`
+        + ` ${parseInt(price).toLocaleString()} ${l.price.token_symbol} by ${l.assets[0].owner}`
 
         if (key in groupedSales) {
             groupedSales[key].push(sale_info)
