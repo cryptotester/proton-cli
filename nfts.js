@@ -44,7 +44,8 @@ const main = async (account, collection_name, template_id) => {
         }
         const tpl_name = nft.template.immutable_data.name
         const collection_friendly_name = nft.collection.name ? ` (${nft.collection.name})` : ''
-        const nft_group = `${nft.template.template_id} "${tpl_name}", ${nft.collection.collection_name}${collection_friendly_name}, issued: ${nft.template.issued_supply}`
+        const nft_group = `${nft.template.template_id} "${tpl_name}", ${nft.collection.collection_name}${collection_friendly_name}, `
+        + `issued: ${nft.template.issued_supply}/${nft.template.max_supply}`
         const nft_info = `${nft.template_mint}: ${nft.asset_id}`
         if (nft_group in groupedNfts) {
             groupedNfts[nft_group].push(nft_info)
