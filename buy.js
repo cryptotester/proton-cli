@@ -9,6 +9,7 @@ var argv = require('yargs/yargs')(process.argv)
     .command('Buy NFTs by sale_id')
     .example('$0 --sale_id 1234')
     .describe('sale_id', 'sale_id')
+    .alias('s', 'sale_id')
     .demand('sale_id')
     .boolean(['debug'])
     .argv
