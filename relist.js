@@ -19,6 +19,8 @@ var argv = require('yargs/yargs')(process.argv)
     .alias('s', 'symbol')
     .default('symbol', '')
     .demandOption('symbol')
+    .boolean(['yes'])
+    .alias('y', 'yes')
     .boolean(['debug'])
     .argv
 

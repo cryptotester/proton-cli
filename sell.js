@@ -15,11 +15,21 @@ var argv = require('yargs/yargs')(process.argv)
     .describe('symbol', 'Symbol')
     .alias('s', 'symbol')
     .default('symbol', 'XUSDC')
+    .boolean(['yes'])
+    .alias('y', 'yes')
     .boolean(['debug'])
     .demandOption(['from_asset_id', 'price', 'symbol'])
     .argv
 
-const sell = async (from_asset_id, to_asset_id, price, symbol) => {
+const _sell = async (from_asset_id, to_asset_id, price, symbol) => {
+    try {
+        await sellManyNfts({ nftsToSell })
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+const sell = async (from_asset_id, to_asset_id, price, symbol, yes) => {
 
     if (to_asset_id === undefined) to_asset_id = from_asset_id
     symbol = symbol.toUpperCase()
@@ -38,22 +48,22 @@ const sell = async (from_asset_id, to_asset_id, price, symbol) => {
             symbol: symbol
         })
     }
-    pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
-        ctrlC: 'reject'
-    })
-    .then(async () => {
-        try {
-            await sellManyNfts({ nftsToSell })
-        } catch (e) {
-            console.log(e)
-        }
-    })
-    .catch(() => {
-        console.log('You pressed Ctrl + C')
-    })
+    if (yes) {
+        _sell(nftsToSell)
+    } else {
+        pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
+            ctrlC: 'reject'
+        })
+        .then(async () => {
+            _sell(nftsToSell)
+        })
+        .catch(() => {
+            console.log('You pressed Ctrl + C')
+        })
+    }
 }
 
-sell(argv.from_asset_id, argv.to_asset_id, argv.price, argv.symbol)
+sell(argv.from_asset_id, argv.to_asset_id, argv.price, argv.symbol, argv.yes)
 
 module.exports = {
     sell
