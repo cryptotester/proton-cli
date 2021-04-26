@@ -48,6 +48,7 @@ node sales.js --help
 - nfts.js
 - relist.js
 - sales.js
+- sales-history.js
 - sell.js
 - send-nft.js
 - templates.js
