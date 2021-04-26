@@ -65,11 +65,19 @@ const getHumanFriendlyAmount = (blockchain_amount, symbol) => {
   return `${parseFloat(amount).toFixed(precision)} ${symbol}`
 }
 
+const isNullOrEmpty = (text) => {
+  if (text === undefined) return true;
+  if (text === null) return true;
+  if (text === '') return true;
+  if (text.trim() !== '') return false;
+}
+
 module.exports = {
   wait,
   getDeployableFilesFromDir,
   sortDictionary,
   getQuantity,
   getHumanFriendlyAmount,
-  getQuantityFromPriceListing
+  getQuantityFromPriceListing,
+  isNullOrEmpty
 }
