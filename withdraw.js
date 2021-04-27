@@ -30,19 +30,23 @@ const withdraw = async (amount, symbol, receiver, memo) => {
     if (argv.debug) console.log(`${amount} ${symbol} converted to '${quantity}' (token_contract: ${token_contract})`)
 
     pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
-        ctrlC: 'reject'
-      })
-        .then(async () => {
-            await transferToken({
-                tokenContract: token_contract,
-                to: receiver,
-                quantity: quantity,
-                memo: ''
-            })
+      ctrlC: 'reject'
+    })
+    .then(async () => {
+      try {
+        await transferToken({
+            tokenContract: token_contract,
+            to: receiver,
+            quantity: quantity,
+            memo: ''
         })
-        .catch(() => {
-          console.log('You pressed Ctrl + C')
-        })
+      } catch (e) {
+        console.log(e)
+      }
+    })
+    .catch(() => {
+      console.log('You pressed Ctrl + C')
+    })
 }
 
 withdraw(argv.amount, argv.symbol, argv.receiver, argv.memo)

@@ -37,16 +37,20 @@ const sendNft = async (start_asset_id, end_asset_id, receiver, memo) => {
     pressAnyKey('Press ENTER to continue, or Ctrl + C to stop.', {
         ctrlC: 'reject'
       })
-        .then(async () => {
+    .then(async () => {
+        try {
             await transferNft({
                 to: receiver,
                 asset_ids: assets,
                 memo: `${memo}`
             })
-        })
-        .catch(() => {
-          console.log('You pressed Ctrl + C')
-        })
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    .catch(() => {
+        console.log('You pressed Ctrl + C')
+    })
 }
 
 sendNft(argv.start_asset_id, argv.end_asset_id, argv.receiver, argv.memo)
