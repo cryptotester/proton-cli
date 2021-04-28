@@ -56,6 +56,7 @@ const main = async (account, collection_name, template_id, symbol, sinceDate, un
     if (argv.debug) console.log(listings) // debug
 
     let groupedSales = {}
+    let earnings = 0
     listings.forEach(l => {
         const key = `${l.assets[0].template.template_id} "${l.assets[0].template.immutable_data.name}"`
         const price = l.price.amount / Math.pow(10, l.price.token_precision)
@@ -63,10 +64,7 @@ const main = async (account, collection_name, template_id, symbol, sinceDate, un
         const updateTimeText = updateTime.toISOString().slice(0, 19).replace('T', ' ')
         const sale_info = `asset_id: ${l.assets[0].asset_id}, template_mint: ${l.assets[0].template_mint}, sale_id: ${l.sale_id},`
         + ` ${parseFloat(price).toLocaleString()} ${l.price.token_symbol}, sold on ${updateTimeText} to ${l.assets[0].owner} (block ${l.updated_at_block})`
-
-        // if (updateTime < sinceDate) {
-        //     return
-        // }
+        earnings += price
 
         if (key in groupedSales) {
             groupedSales[key].push(sale_info)
@@ -82,6 +80,8 @@ const main = async (account, collection_name, template_id, symbol, sinceDate, un
         console.log(`${key} (total: ${sortedSales[key].length})`)
         assets.forEach(a => console.log(a))
     }
+
+    console.log(`${account} sold for ${earnings} ${symbol}`)
 }
 
 main(argv.account, argv.collection_name, argv.template_id, argv.symbol, argv.sinceDate, argv.untilDate)
