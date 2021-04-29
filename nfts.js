@@ -53,10 +53,13 @@ const main = async (account, collection_name, template_id) => {
             groupedNfts[nft_group] = [nft_info]
         }
     });
-   
+
     const sortedNfts = sortDictionary(groupedNfts)
-    console.log(sortedNfts)
+    //if (argv.debug) console.log(sortedNfts)
     Object.keys(sortedNfts).forEach(key => {
+        sortedNfts[key].forEach(nft => {
+            console.log(nft)
+        })
         console.log(`${key}, owned: ${sortedNfts[key].length}`)
     })
 }
