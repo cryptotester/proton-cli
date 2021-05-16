@@ -5,7 +5,8 @@ const createTemplate = async ({
     collection_name,
     schema_name,
     max_supply,
-    immutable_data
+    immutable_data,
+    mutable_data = [],
 }) => {
     await transact([{
         account: "atomicassets",
@@ -17,7 +18,8 @@ const createTemplate = async ({
             transferable: true,
             burnable: true,
             max_supply: max_supply,
-            immutable_data: immutable_data
+            immutable_data: immutable_data,
+            mutable_data: mutable_data
         },
         authorization: [{ actor: ACCOUNT, permission: ACCOUNT_PERMISSION }],
     }])
