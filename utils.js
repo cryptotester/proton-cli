@@ -72,6 +72,22 @@ const isNullOrEmpty = (text) => {
   if (text.trim() !== '') return false;
 }
 
+/**
+ * Returns an array with arrays of the given size.
+ *
+ * @param myArray {Array} Array to split
+ * @param chunkSize {Integer} Size of every group
+ */
+const chunkArray = (myArray, chunk_size) => {
+  var results = [];
+
+  while (myArray.length) {
+      results.push(myArray.splice(0, chunk_size));
+  }
+
+  return results;
+}
+
 module.exports = {
   wait,
   getDeployableFilesFromDir,
@@ -79,5 +95,6 @@ module.exports = {
   getQuantity,
   getHumanFriendlyAmount,
   getQuantityFromPriceListing,
-  isNullOrEmpty
+  isNullOrEmpty,
+  chunkArray
 }
