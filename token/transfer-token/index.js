@@ -2,6 +2,7 @@ const { transact } = require('../../api')
 const { ACCOUNT, ACCOUNT_PERMISSION } = require('../../constants')
 
 const transferToken = async ({ tokenContract, to, quantity, memo }) => {
+    console.log(`${tokenContract}, ${to}, ${quantity}, ${memo}`)
     await transact([{
         account: tokenContract,
         name: 'transfer',
