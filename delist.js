@@ -19,6 +19,7 @@ var argv = require('yargs/yargs')(process.argv)
     .default('template_id', '')
     .alias('t', 'template_id')
     .describe('sale_id', 'sale_id')
+    .alias('s', 'sale_id')
     .default('sale_id', undefined)
     .boolean(['debug'])
     .argv
